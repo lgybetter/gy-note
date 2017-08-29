@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "outDir": "build",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "pretty": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": true,
+    "noImplicitReturns": true,
+    "noImplicitUseStrict": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "suppressExcessPropertyErrors": true,
+    "suppressImplicitAnyIndexErrors": true
+    // "allowJs": true,
+    // "rootDirs": ["./src"]
+  },
+  "compileOnSave": true,
+  "exclude": [
+    "node_modules"
+  ],
+  "atom": {
+    "rewriteTsconfig": true
+  },
+  "typeRoots": [],
+  "include": [
+    "typings",
+    "./**/*.js",
+    "./**/*.ts",
+    "./**/*.tsx"
+  ]
+}
