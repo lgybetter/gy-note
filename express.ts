@@ -5,7 +5,9 @@ import Controllers from './controllers'
 import { LogMidd } from './middlewares/log-midd'
 import { ErrorHandler } from './middlewares/error-handler'
 import { Request, Response, NextFunction } from 'express'
-import { ResDataFormatInterceptor } from './interceptors/res-data-format'
+// 注意导入的先后顺序，会影响执行的先后
+import { ResDataFormatInterceptor } from './interceptors/res-data-format'　// 后执行
+import { FormatMongoInterceptor } from './interceptors/format-mongo' // 先执行
 import { port, host } from './config'
 
 useContainer(Container)
@@ -18,6 +20,7 @@ const expressApp = createExpressServer({
         ErrorHandler
     ],
     interceptors: [
+        FormatMongoInterceptor,
         ResDataFormatInterceptor
     ]
 })
