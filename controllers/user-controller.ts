@@ -3,29 +3,68 @@ import { Service } from 'typedi'
 import { UserService } from '../services/user-service'
 import { User, UserSchema, IUserModel } from '../schemas/user';
 import { DocumentQuery, Schema, Model, model} from 'mongoose'
-import { mongoIdToWebId } from '../utils/filters'
 
 @Service()
 @JsonController()
 export class UserController {
     constructor(private userService: UserService) {}
     @Get('/users')
-    getAll(): Promise<Object> {
-        return this.userService.findAll().then(data => data.map(mongoIdToWebId))
+    async getAll(): Promise<object> {
+        try {
+            return await this.userService.findAll()
+        } catch (err) {
+            if (!err.code) {
+                return {
+                    code: 500,
+                    msg: err.message
+                }
+            }
+            return err
+        }
     }
 
     @Get('/users/:id')
-    getOne(@Param('id') id: number): Promise<Object> {
-        return this.userService.findOne(id).then(data => mongoIdToWebId(data))
+    async getOne(@Param('id') id: string): Promise<object> {
+        try {
+            return await this.userService.findOne(id)
+        } catch (err) {
+            if (!err.code) {
+                return {
+                    code: 500,
+                    msg: err.message
+                }
+            }
+            return err
+        }
     }
 
     @Post('/users')
-    post(@Body() user: IUserModel): Promise<Object> {
-        return this.userService.save(user).then(data => mongoIdToWebId(data))
+    async post(@Body() user: IUserModel): Promise<object> {
+        try {
+            return await this.userService.save(user)
+        } catch (err) {
+            if (!err.code) {
+                return {
+                    code: 500,
+                    msg: err.message
+                }
+            }
+            return err
+        }
     }
 
     @Delete('/users/:id')
-    del(@Param('id') id: number): Promise<Object> {
-        return this.userService.remove(id).then(data => mongoIdToWebId(data))
+    async del(@Param('id') id: string): Promise<object> {
+        try {
+            return await this.userService.remove(id)
+        } catch (err) {
+            if (!err.code) {
+                return {
+                    code: 500,
+                    msg: err.message
+                }
+            }
+            return err
+        }
     }
 }

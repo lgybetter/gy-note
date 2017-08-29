@@ -10,7 +10,9 @@ useContainer(Container)
 
 const expressApp = createExpressServer({
     controllers: Controllers,
-    middlewares: [LogUrlMidd]
+    middlewares: [
+        LogUrlMidd
+    ]
 })
 
 // global middlewares
