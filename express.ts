@@ -3,15 +3,22 @@ import { createExpressServer, useContainer, useExpressServer, Controller, UseBef
 import { Container } from 'typedi'
 import Controllers from './controllers'
 import { LogMidd } from './middlewares/log-midd'
+import { ErrorHandler } from './middlewares/error-handler'
 import { Request, Response, NextFunction } from 'express'
+import { ResDataFormateInterceptor } from './interceptors/res-data-formate'
 import { port, host } from './config'
 
 useContainer(Container)
 
 const expressApp = createExpressServer({
     controllers: Controllers,
+    defaultErrorHandler: false,
     middlewares: [
-        LogMidd
+        LogMidd,
+        ErrorHandler
+    ],
+    interceptors: [
+        ResDataFormateInterceptor
     ]
 })
 
