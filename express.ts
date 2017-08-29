@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import { createExpressServer, useContainer, useExpressServer, Controller, UseBefore } from 'routing-controllers';
 import { Container } from 'typedi'
 import Controllers from './controllers'
-import { LogUrlMidd } from './middlewares/log-url-midd'
+import { LogMidd } from './middlewares/log-midd'
 import { Request, Response, NextFunction } from 'express'
 import { port, host } from './config'
 
@@ -11,7 +11,7 @@ useContainer(Container)
 const expressApp = createExpressServer({
     controllers: Controllers,
     middlewares: [
-        LogUrlMidd
+        LogMidd
     ]
 })
 

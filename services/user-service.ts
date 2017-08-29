@@ -9,11 +9,12 @@ export class UserService {
         return users.map(mongoIdToWebId)
     }
     async findOne(id: string) {
-        const user = await User.findById(id).select('-password')
-        if(!user) {
+        try {
+            const user = await User.findById(id).select('-password')
+            return mongoIdToWebId(user)
+        } catch (error) {
             return Promise.reject({ code: 404, msg: '用户不存在' })
         }
-        return mongoIdToWebId(user)
     }
     async save(user: IUserModel) {
         const count = await User.count({ email: user.email })
@@ -24,10 +25,11 @@ export class UserService {
         return Promise.resolve(mongoIdToWebId({ ...user, _id: _user._id }))
     }
     async remove(id: string) {
-        const user = await User.findByIdAndRemove(id).select('-password')
-        if(!user) {
+        try {
+            const user = await User.findByIdAndRemove(id).select('-password')
+            return mongoIdToWebId(user)
+        } catch (error) {
             return Promise.reject({ code: 404, msg: '用户不存在' })
         }
-        return mongoIdToWebId(user)
     }
 }
