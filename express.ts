@@ -5,7 +5,7 @@ import Controllers from './controllers'
 import { LogMidd } from './middlewares/log-midd'
 import { ErrorHandler } from './middlewares/error-handler'
 import { Request, Response, NextFunction } from 'express'
-import { ResDataFormateInterceptor } from './interceptors/res-data-formate'
+import { ResDataFormatInterceptor } from './interceptors/res-data-format'
 import { port, host } from './config'
 
 useContainer(Container)
@@ -18,7 +18,7 @@ const expressApp = createExpressServer({
         ErrorHandler
     ],
     interceptors: [
-        ResDataFormateInterceptor
+        ResDataFormatInterceptor
     ]
 })
 

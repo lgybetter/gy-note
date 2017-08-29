@@ -1,6 +1,6 @@
 import { Middleware, ExpressErrorMiddlewareInterface } from 'routing-controllers';
 import { ErrorRequestHandler, Request, Response } from 'express';
-import { IError } from '../interfaces/error'
+import { IError } from '../interfaces/res-data'
 
 @Middleware({ type: 'after' })
 export class ErrorHandler implements ExpressErrorMiddlewareInterface {

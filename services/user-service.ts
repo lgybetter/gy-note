@@ -5,13 +5,11 @@ import { mongoIdToWebId } from '../utils/filters'
 @Service()
 export class UserService {
     async findAll() {
-        const users = await User.find().select('-password')
-        return users.map(mongoIdToWebId)
+        return await User.find().select('-password')
     }
     async findOne(id: string) {
         try {
-            const user = await User.findById(id).select('-password')
-            return mongoIdToWebId(user)
+            return await User.findById(id).select('-password')
         } catch (error) {
             return Promise.reject({ code: 404, msg: '用户不存在' })
         }
@@ -22,12 +20,11 @@ export class UserService {
             return Promise.reject({ code: 400, msg: '用户已经存在' })
         }
         const _user = await new User(user).save()
-        return Promise.resolve(mongoIdToWebId({ ...user, _id: _user._id }))
+        return Promise.resolve({ ...user, _id: _user._id })
     }
     async remove(id: string) {
         try {
-            const user = await User.findByIdAndRemove(id).select('-password')
-            return mongoIdToWebId(user)
+            return await User.findByIdAndRemove(id).select('-password')
         } catch (error) {
             return Promise.reject({ code: 404, msg: '用户不存在' })
         }

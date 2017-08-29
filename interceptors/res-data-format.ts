@@ -1,7 +1,7 @@
 import { Interceptor, InterceptorInterface, Action } from 'routing-controllers'
 
 @Interceptor()
-export class ResDataFormateInterceptor implements InterceptorInterface {
+export class ResDataFormatInterceptor implements InterceptorInterface {
     intercept (action: Action, content: any) {
         console.log('nice!!', content)
         return {
