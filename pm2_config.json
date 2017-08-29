@@ -1,0 +1,12 @@
+{
+  "apps" : [
+    {
+      "name"        : "gy-note",
+      "script"      : "index.ts",
+      "instances"   : 1,
+      "watch"       : false,
+      "exec_interpreter" : "ts-node",
+      "exec_mode"        : "fork"
+    }
+  ]
+}

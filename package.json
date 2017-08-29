@@ -4,7 +4,8 @@
   "description": "express typescript template",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && nodemon ./build/index.js",
+    "start": "nodemon .",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -28,6 +29,8 @@
   "devDependencies": {
     "@types/mongodb": "^2.2.10",
     "@types/mongoose": "^4.7.21",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.4.2"
   }
 }
