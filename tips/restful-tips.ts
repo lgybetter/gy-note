@@ -1,6 +1,7 @@
 export const DATA_NOT_FOUND = '该记录不存在'
 export const DATA_CREATE_FAIL = '创建记录失败'
 export const DATA_DELETE_FAIL = '删除记录失败'
+export const DATA_UPDATE_FAIL = '更新记录失败'
 export const USER_NOT_FOUND = '用户账户不存在'
 export const USER_EXISTED = '用户已经存在'
 export const USER_UPDATE_FAIL = '用户信息更新失败'

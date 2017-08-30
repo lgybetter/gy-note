@@ -11,15 +11,15 @@ export class UserController {
     constructor(private userService: UserService) {}
     @Authorized()
     @Get()
-    async getAll(@CurrentUser({ required: true }) user: IUserModel): Promise<object> {
+    async getAll(@CurrentUser({ required: true }) user: IUserModel) {
         return await this.userService.findAll()
     }
     @Get('/:id')
-    async getOne(@Param('id') id: string): Promise<object> {
+    async getOne(@Param('id') id: string) {
         return await this.userService.findOne(id)
     }
     @Delete('/:id')
-    async del(@Param('id') id: string): Promise<object> {
+    async del(@Param('id') id: string) {
         return await this.userService.remove(id)
     }
 }

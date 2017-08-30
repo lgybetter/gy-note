@@ -1,4 +1,4 @@
-import { DATA_CREATE_FAIL, DATA_DELETE_FAIL, DATA_NOT_FOUND } from '../tips/restful-tips';
+import { DATA_CREATE_FAIL, DATA_DELETE_FAIL, DATA_NOT_FOUND, DATA_UPDATE_FAIL } from '../tips/restful-tips';
 import { IUserModel } from '../schemas/user';
 import { Service } from 'typedi';
 import { Note } from '../schemas/note';
@@ -27,6 +27,13 @@ export class NoteService {
             return await Note.findOneAndRemove({ _id: id, createdBy: user._id })
         } catch (error) {
             return Promise.reject({ code: 400, msg: DATA_DELETE_FAIL })            
+        }
+    }
+    async update(id: string, content: string, user: IUserModel) {
+        try {
+            return await Note.findOneAndUpdate({ _id: id, createdBy: user._id}, { content: content })
+        } catch (error) {
+            return Promise.reject({ code: 400, msg: DATA_UPDATE_FAIL})
         }
     }
 }
