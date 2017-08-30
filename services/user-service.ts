@@ -1,7 +1,7 @@
+import { USER_EXISTED, USER_NOT_FOUND, USER_UPDATE_FAIL, USER_VERIFY_TOKEN_FAIL } from '../tips/restful-tips';
 import { secret } from '../config';
 import { Service } from 'typedi'
 import { User, IUserModel } from '../schemas/user'
-import { mongoIdToWebId } from '../utils/filters'
 import { SHA3 } from 'crypto-js'
 import { sign, verify } from 'jsonwebtoken';
 
@@ -14,13 +14,13 @@ export class UserService {
         try {
             return await User.findById(id).select('-password')
         } catch (error) {
-            return Promise.reject({ code: 404, msg: '用户不存在' })
+            return Promise.reject({ code: 404, msg: USER_NOT_FOUND })
         }
     }
     async save(user: IUserModel) {
         const count = await User.count({ email: user.email })
         if(count > 0) {
-            return Promise.reject({ code: 400, msg: '用户已经存在' })
+            return Promise.reject({ code: 400, msg: USER_EXISTED })
         }
         user.password = SHA3(user.password).toString()
         const _user = await new User(user).save()
@@ -31,18 +31,25 @@ export class UserService {
         try {
             return await User.findByIdAndRemove(id).select('-password')
         } catch (error) {
-            return Promise.reject({ code: 404, msg: '用户不存在' })
+            return Promise.reject({ code: 404, msg: USER_NOT_FOUND })
+        }
+    }
+    async update(id: string, user:IUserModel) {
+        try {
+            return await User.findByIdAndUpdate(id, user).select('-password')
+        } catch (error) {
+            return Promise.reject({ code: 400, msg: USER_UPDATE_FAIL })
         }
     }
     async verifyUser(user: IUserModel) {
         const count = await User.count({ email: user.email })
         if(count <= 0) {
-            return Promise.reject({ code: 404, msg: '用户账户不存在' })
+            return Promise.reject({ code: 404, msg: USER_NOT_FOUND })
         }
         const _user = await User.findOne({ email: user.email })
         user.password = SHA3(user.password).toString()
         if(_user.password !== user.password) {
-            return Promise.reject({ code: 400, msg: '用户口令验证出错' })
+            return Promise.reject({ code: 400, msg: USER_VERIFY_TOKEN_FAIL })
         }
         const payload = {
             name: _user.name,

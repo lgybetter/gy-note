@@ -3,7 +3,7 @@ import { IUserModel } from './user';
 
 export interface INoteModel extends Document {
     content: string,
-    createdBy: string
+    createdBy?: string
 }
 
 export const NoteSchema: Schema = new Schema({
@@ -14,4 +14,4 @@ export const NoteSchema: Schema = new Schema({
         default: Date.now()
     }
 })
-export const Node: Model<INoteModel> = model<INoteModel>('Note', NoteSchema)
+export const Note: Model<INoteModel> = model<INoteModel>('Note', NoteSchema)
