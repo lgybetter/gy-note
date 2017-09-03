@@ -17,7 +17,7 @@ export class NoteService {
     }
     async save(content: string, user: IUserModel) {
         try {
-            return await new Note({ createdBy: user._id, content })
+            return await new Note({ createdBy: user._id, content }).save()
         } catch (error) {
             return Promise.reject({ code: 400, msg: DATA_CREATE_FAIL })
         }
