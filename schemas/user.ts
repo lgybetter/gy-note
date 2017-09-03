@@ -12,10 +12,7 @@ export const UserSchema: Schema = new Schema({
     name: String,
     password: String,
     roles: { type: Array, default: ['commonUser'] }, // commonUser: 普通用户　admin: 管理员 
-    createdAt: {
-        type: Date,
-        default: Date.now()
-    }
+    createdAt: { type: Date, default: Date.now() }
 })
 
 export const User: Model<IUserModel> = model<IUserModel>('User', UserSchema)

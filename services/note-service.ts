@@ -1,7 +1,7 @@
 import { DATA_CREATE_FAIL, DATA_DELETE_FAIL, DATA_NOT_FOUND, DATA_UPDATE_FAIL } from '../tips/restful-tips';
 import { IUserModel } from '../schemas/user';
 import { Service } from 'typedi';
-import { Note } from '../schemas/note';
+import { Note, INoteModel } from '../schemas/note';
 
 @Service()
 export class NoteService {
@@ -15,9 +15,9 @@ export class NoteService {
             return Promise.reject({ code: 400, msg: DATA_NOT_FOUND })            
         }
     }
-    async save(content: string, user: IUserModel) {
+    async save(note: INoteModel, user: IUserModel) {
         try {
-            return await new Note({ createdBy: user._id, content }).save()
+            return await new Note({ createdBy: user._id, ...note }).save()
         } catch (error) {
             return Promise.reject({ code: 400, msg: DATA_CREATE_FAIL })
         }
@@ -29,9 +29,9 @@ export class NoteService {
             return Promise.reject({ code: 400, msg: DATA_DELETE_FAIL })            
         }
     }
-    async update(id: string, content: string, user: IUserModel) {
+    async update(id: string, note: INoteModel, user: IUserModel) {
         try {
-            return await Note.findOneAndUpdate({ _id: id, createdBy: user._id}, { content: content })
+            return await Note.findOneAndUpdate({ _id: id, createdBy: user._id},  note)
         } catch (error) {
             return Promise.reject({ code: 400, msg: DATA_UPDATE_FAIL})
         }

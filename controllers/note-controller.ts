@@ -23,10 +23,10 @@ export class NoteController {
     }
     @Post()
     async create(@Body() note: INoteModel, @CurrentUser({ required: true }) user: IUserModel) {
-        return await this.noteService.save(note.content, user)
+        return await this.noteService.save(note, user)
     }
     @Put('/:id')
     async update(@Body() note: INoteModel, @CurrentUser({ required: true }) user: IUserModel, @Param('id') id: string) {
-        return await this.noteService.update(id, note.content, user)
+        return await this.noteService.update(id, note, user)
     }
 }
